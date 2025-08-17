@@ -1,0 +1,117 @@
+﻿@model NhaSachMetMoi.Models.DonHang
+
+@{
+    ViewBag.Title = "Chi tiết đơn hàng";
+    Layout = "~/Views/Shared/Admin.cshtml";
+    <link href="~/Content/StyleSheet1.css" rel="stylesheet" />
+    var today = DateTime.Now.ToString("yyyy-MM-ddTHH:mm");
+}
+
+<h1>Chi tiết đơn hàng</h1>
+
+<div style="margin-left:15px">
+    <dl class="dl-horizontal">
+        <dt>
+            Mã đơn hàng
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MaDH)
+        </dd>
+        <dt>
+            Ngày đặt hàng
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NgayDat)
+        </dd>
+        <dt>
+            Ngày giao hàng dự kiến
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NgayGiao)
+        </dd>
+        <dt>
+            Mã khách hàng
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MaKH)
+        </dd>
+        <dt>
+            Họ tên Khách Hàng
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.KH.HoTen)
+        </dd>
+        
+    </dl>
+</div>
+
+<table id="ChiTietDonHang" title="Chi tiết đơn hàng" style="width: 100%; border-collapse: collapse;">
+    <tr>
+        <th style="border: 1px solid black; padding: 8px;">Tên Sách</th>
+        <th style="border: 1px solid black; padding: 8px;">Số Lượng</th>
+        <th style="border: 1px solid black; padding: 8px;">Ảnh Bìa</th>
+        <th style="border: 1px solid black; padding: 8px;">Giá Bán</th>
+        <th style="border: 1px solid black; padding: 8px;">Khuyến Mãi</th>
+        <th style="border: 1px solid black; padding: 8px;">Thành Tiền</th>
+    </tr>
+
+    @foreach (var item in Model.ChiTietDHs)
+    {
+        var thanhTien = item.SoLuong * item.Gia * (1 - item.Sach.Sale / 100m);
+
+        <tr>
+            <td style="border: 1px solid black; padding: 8px;">@item.Sach.TenSach</td>
+            <td style="border: 1px solid black; padding: 8px;">@item.SoLuong</td>
+            <td style="border: 1px solid black; padding: 8px;">
+                <img src="@Url.Content("~/Content/images/sach/" + item.Sach.AnhBia)" alt="Ảnh bìa" class="img-thumbnail" style="width:50px; height:70px;" />
+            </td>
+            <td style="border: 1px solid black; padding: 8px;">@string.Format("{0:0,0}", item.Gia).Replace(",", ".") VNĐ</td>
+            <td style="border: 1px solid black; padding: 8px;">@item.Sach.Sale %</td>
+            <td style="border: 1px solid black; padding: 8px;">@string.Format("{0:0,0}", thanhTien).Replace(",", ".") VNĐ</td>
+        </tr>
+    }
+    <tr>
+        <td colspan="5" style="text-align:right; font-weight:bold; border: 1px solid black; padding: 8px;">Tổng tiền:</td>
+        <td style="color:red; font-weight:bold; border: 1px solid black; padding: 8px;">  @string.Format("{0:0,0}", Model.ChiTietDHs.Sum(item => item.Gia * item.SoLuong)).Replace(",", ".") VNĐ</td>
+    </tr>
+    <tr>
+        <td colspan="5" style="text-align:right; font-weight:bold; border: 1px solid black; padding: 8px;">Giảm giá từ mã:</td>
+        <td style="color:red; font-weight:bold; border: 1px solid black; padding: 8px;">@string.Format("{0:0,0}", (Model.ChiTietDHs.Sum(item => item.Gia * item.SoLuong) - Model.TongTien)).Replace(",", ".") VNĐ</td>
+    </tr>
+    <tr>
+        <td colspan="5" style="text-align:right; font-weight:bold; border: 1px solid black; padding: 8px;">Tổng tiền phải trả:</td>
+        <td style="color:red; font-weight:bold; border: 1px solid black; padding: 8px;">@string.Format("{0:0,0}", Model.TongTien).Replace(",", ".") VNĐ</td>
+    </tr>
+</table>
+
+@using (Html.BeginForm("DetailDH", "Admin", FormMethod.Post))
+{
+    <div>
+        <label>Xác nhận</label>
+        @Html.CheckBox("xacnhan", false, new { id = "xacnhan" })
+    </div>
+    <div>
+        <label>Ngày giao</label>
+        @Html.TextBox("ngaygiao", Model.NgayGiao.HasValue ? Model.NgayGiao.Value.ToString("yyyy-MM-ddTHH:mm") : "", new { @type = "datetime-local", id = "ngaygiao", min = today, disabled = "disabled" })
+    </div>
+    <input type="hidden" name="MaDH" value="@Model.MaDH" />
+    <div>
+        <input type="submit" value="Cập nhật" />
+    </div>
+}
+
+<script>
+    document.getElementById("xacnhan").addEventListener("change", function () {
+        var ngaygiao = document.getElementById("ngaygiao");
+        if (this.checked) {
+            ngaygiao.removeAttribute("disabled");
+        } else {
+            ngaygiao.setAttribute("disabled", "disabled");
+        }
+    });
+</script>
+
+<p>
+    @Html.ActionLink("Chỉnh sửa", "EditDH", new { @MaDH = Model.MaDH }) |
+    @Html.ActionLink("Quay lại trang trước", "IndexDH")
+</p>

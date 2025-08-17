@@ -1,0 +1,867 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,300;6..12,400;6..12,500;6..12,600;6..12,700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 999;
+}
+
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: 'Nunito Sans', Arial;
+    line-height: 1.5;
+}
+
+a, a:hover {
+    text-decoration: none ;
+    color:#2E8B57 ;
+}
+
+nav {
+    background-color: #2E8B57;
+    padding: 1px 130px;
+    display: flex;
+    align-items: center;
+}
+
+    nav a:hover {
+        color: white;
+    }
+
+.logo {
+    flex: 1;
+}
+
+    .logo a {
+        display: flex;
+        align-items: center;
+        font-size: 20px;
+    }
+
+        .logo a:hover {
+            color: #fff;
+        }
+
+    .logo img {
+        width: 100px;
+        margin-right: 10px;
+    }
+
+.menu {
+    display: flex;
+    align-items: center;
+    list-style: none;
+}
+
+    .menu li {
+        padding: 15px 20px;
+    }
+
+    .menu a {
+        color: #FFFACD;
+    }
+
+.toggle {
+    font-size: 30px;
+    display: none;
+}
+
+    .toggle a {
+        color: grey;
+    }
+
+@media screen and (max-width: 600px) {
+    nav {
+        display: block;
+        position: relative;
+        padding: 15px 20px;
+    }
+
+    .menu {
+        margin-top: 15px;
+        display: none;
+    }
+
+        .menu.active, .toggle {
+            display: block;
+        }
+
+    .toggle {
+        position: absolute;
+        top: 15px;
+        right: 20px;
+    }
+}
+
+.dropbtn {
+    color: #FFFACD;
+    padding: 15px 20px;
+    cursor: pointer;
+}
+
+    .dropbtn:hover, .dropbtn:focus {
+        color: white;
+    }
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    width: 202px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+    .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
+
+.dropdown a:hover {
+    background: #2E8B57;
+    color: #FFFACD;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.openBtn {
+    color: #FFFACD;
+    border: none;
+    padding: 10px 15px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+    .openBtn:hover, .dropbtn:focus {
+        color: white;
+    }
+
+.overlay {
+    height: 100%;
+    width: 100%;
+    display: none;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0, 0.9);
+}
+
+.overlay-content {
+    position: relative;
+    top: 46%;
+    width: 80%;
+    text-align: center;
+    margin-top: 30px;
+    margin: auto;
+}
+
+.overlay .closebtn {
+    position: absolute;
+    top: 20px;
+    right: 45px;
+    font-size: 60px;
+    cursor: pointer;
+    color: white;
+}
+
+    .overlay .closebtn:hover {
+        color: #ccc;
+    }
+
+.overlay input[type=text] {
+    padding: 15px;
+    font-size: 17px;
+    border: none;
+    float: left;
+    width: 80%;
+    background: white;
+}
+
+    .overlay input[type=text]:hover {
+        background: #f1f1f1;
+    }
+
+.overlay button {
+    float: left;
+    width: 20%;
+    padding: 15px;
+    background: #ddd;
+    font-size: 17px;
+    border: none;
+    cursor: pointer;
+}
+
+    .overlay button:hover {
+        background: #bbb;
+    }
+
+.show {
+    display: block;
+}
+
+* {
+    box-sizing: border-box
+}
+
+body {
+    font-family: Verdana, sans-serif;
+    margin: 0
+}
+
+.mySlides {
+    display: none
+}
+
+img {
+    vertical-align: middle;
+}
+
+.slideshow-container {
+    max-width: 100%;
+   
+    height:316px;
+    position: relative;
+    margin: auto;
+}
+
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -22px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+}
+
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+    .prev:hover, .next:hover {
+        background-color: rgba(0,0,0,0.8);
+    }
+
+.dot {
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #2E8B57; /* Màu nền cho trạng thái bình thường */
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+    position: absolute;
+    bottom: 10px;
+}
+
+    .dot.active, .dot:hover {
+        background-color: #FFFACD; /* Màu nền cho trạng thái active */
+    }
+
+
+    .dot:nth-child(1) {
+        left: calc(50% - 30px);
+    }
+
+    .dot:nth-child(2) {
+        left: 50%;
+    }
+
+    .dot:nth-child(3) {
+        left: calc(50% + 30px);
+    }
+
+     
+
+.fade {
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+
+@keyframes fade {
+    from {
+        opacity: .4
+    }
+
+    to {
+        opacity: 1
+    }
+}
+
+@media only screen and (max-width: 300px) {
+    .prev, .next, .text {
+        font-size: 11px
+    }
+}
+.container {
+    max-width: 1170px;
+    background-color: #323331;
+    margin: auto;
+}
+.container1 {
+    max-width: 1170px;
+    background-color: #2E8B57;
+    margin: auto;
+}
+
+.row {
+    background-color: white;
+    display: flex;
+    flex-wrap: wrap;
+}
+.row1 {
+    background-color: #2E8B57;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+ul {
+    list-style: none;
+}
+
+.footer {
+    background-color: #2E8B57;
+    padding: 70px 0;
+}
+
+.footer-col {
+    background-color: #2E8B57;
+    width: 33%;
+    padding: 0 15px;
+}
+
+    .footer-col h4 {
+        font-size: 18px;
+        color: #FFFACD;
+        text-transform: capitalize;
+        margin-bottom: 30px;
+        font-weight: 500;
+        position: relative;
+    }
+
+        .footer-col h4::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            background-color: white;
+            height: 1px;
+            box-sizing: border-box;
+            width: 250px;
+        }
+
+    .footer-col ul li:not(:last-child) {
+        margin-bottom: 10px;
+    }
+
+    .footer-col ul li {
+        font-size: 13px;
+        text-transform: capitalize;
+        color: #323331;
+        text-decoration: none;
+        font-weight: 300;
+        color: #FFFACD;
+        display: block;
+    }
+
+    .footer-col .social-link a {
+        display: inline-block;
+        height: 40px;
+        width: 40px;
+        background-color: rgba(255,255,255,0.2);
+        margin: 0 10px 10px 0;
+        text-align: center;
+        line-height: 40px;
+        border-radius: 50%;
+        color: #FFFACD;
+        transition: all 0.5s ease;
+    }
+
+        .footer-col .social-link a:hover {
+            color: white;
+            background-color: grey;
+        }
+
+@media(max-width: 767px) {
+    .footer-col {
+        width: 50%;
+        margin-bottom: 30px;
+    }
+}
+
+@media(max-width: 574px) {
+    .footer-col {
+        width: 100%;
+    }
+}
+
+.tablink {
+    color: white;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    font-size: 17px;
+    width: 100%;
+}
+
+    .tablink:hover {
+        text-decoration: underline;
+        text-underline-offset: 4px;
+    }
+    .tablink.active {
+        border: 2px solid #FFFACD;
+        
+        border-radius: 5px; /* Đảm bảo border-radius khi active */
+    }
+
+.tabcontent {
+    margin-left: 6%;
+    height: auto;
+    border: 2px solid black;
+    border-radius: 8px;
+    padding: 5px;
+    margin-right: 80px;
+}
+
+#TenSach {
+    overflow: hidden;
+    position: relative;
+    white-space: nowrap;
+}
+
+.marquee {
+    display: inline-block;
+    padding-left: 100%;
+    animation: marquee 10s linear infinite;
+    font-weight: bold;
+}
+
+#TenSach:hover .marquee {
+    animation-play-state: running;
+}
+
+@keyframes marquee {
+    0% {
+        transform: translateX(100%);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+
+#SanPham {
+    float: left;
+    width: 272px;
+    height: 400px;
+    margin-top: 25px;
+    margin-left: 45px;
+    margin-bottom: 25px;
+    position: relative;
+}
+    #SanPham:hover {
+        box-shadow: 10px 10px 5px #b7b1b1;
+        background-color: whitesmoke;
+        border: 4px solid #2E8B57;
+        border-radius: 10px;  
+    }
+
+
+
+#TenSach {
+    font-size: 18px;
+    color: black;
+    margin-left: 34px;
+}
+
+#DonGia {
+    margin-left: 34px;
+}
+
+.theloai {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    margin: auto;
+}
+
+    .theloai li {
+        padding: 15px 20px;
+        font-size: 18px;
+    }
+
+    .theloai a {
+        color: #FFFACD;
+    }
+
+.khoi {
+    width: 100%;
+    height: 180px;
+    border: 2px solid black;
+    border-radius: 8px;
+    padding: 5px;
+}
+
+.khoisach {
+    width: 100%;
+    height: auto;
+    border: 2px solid black;
+    border-radius: 8px;
+}
+
+.thumb-discount-label {
+    width: 47px;
+    height: 47px;
+    font-size: 16px;
+    background-color: #eb1717;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+}
+
+    .thumb-discount-label span {
+        color: #fff;
+    }
+
+#NutMua {
+    max-width: 100%;
+    height: auto;
+    text-align: center;
+    align-content: center;
+    font-size: 16px;
+    margin-left: 34px;
+    margin-right: 34px;
+    border: solid 2px black;
+    margin-top: 5px;
+}
+
+    #NutMua:hover {
+        width: 110%;
+        margin: auto;
+        margin-top: 7px;
+        height: 30px;
+        background-color: #2E8B57;
+        color: #FFFACD;
+        border: none;
+    }
+
+.container_swap {
+    width: 100%;
+}
+
+.left {
+    width: 30%;
+    float: left;
+    text-align: center;
+    background-color: white;
+    border-radius: 5px;
+    border: #2E8B57 2px solid;
+    color: #2E8B57;
+    padding: 15px 1px;
+    cursor: pointer;
+    margin-right: 20px;
+}
+
+.right {
+    width: 30%;
+    float: left;
+    text-align: center;
+    background-color: #2E8B57;
+    border-radius: 5px;
+    border: #2E8B57 2px solid;
+    color: #FFFACD;
+    padding: 15px 1px;
+    cursor: pointer;
+}
+
+.image-container {
+    text-align: center;
+    margin: 24px 0 12px 0;
+    position: relative;
+}
+
+#ThemGioHang {
+    border: 0;
+}
+
+.formdkbox {
+    width: 380px;
+    height: 900px;
+    position: relative;
+    margin: auto;
+    background: #fff;
+    padding: 5px;
+    overflow: hidden;
+}
+
+.buttondkbox {
+    width: 220px;
+    margin: 35px auto;
+    position: relative;
+    box-shadow: 0 0 20px 9px #ff61241f;
+    border-radius: 30px;
+}
+
+.toggledkbtn {
+    padding: 10px 20px;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+    outline: none;
+    font-weight: bold;
+    position: relative;
+}
+
+#btndk {
+    top: 0;
+    left: 0;
+    position: absolute;
+    width: 110px;
+    height: 100%;
+    background: linear-gradient(to right, #34a853, #8bc34a);
+    border-radius: 30px;
+    transition: .5s;
+}
+
+.inputdkgroup {
+    position: absolute;
+    width: 330px;
+    transition: .5s;
+}
+
+.inputdkfield {
+    width: 100%;
+    padding: 10px 0;
+    margin: 5px 0;
+    border-left: 0;
+    border-top: 0;
+    border-right: 0;
+    border-bottom: 1px solid #999;
+    outline: none;
+    background: transparent;
+}
+/*css nay cho Dang Nhap*/
+.inputdkfieldd {
+    width: 100%;
+    padding: 30px 0;
+    margin: 5px 0;
+    border-left: 0;
+    border-top: 0;
+    border-right: 0;
+    border-bottom: 1px solid #999;
+    outline: none;
+    background: transparent;
+}
+
+.submitdkbtn {
+    width: 85%;
+    padding: 10px 30px;
+     font-size: 16px; 
+    font-weight: bold;
+    cursor: pointer;
+    display: block;
+    margin: auto;
+    background: linear-gradient(to right, #34a853, #8bc34a);
+    outline: none;
+    border-radius: 30px;
+    border: 0px;
+}
+    .submitdkbtn:hover {
+        background: linear-gradient(to right, #8bc34a, #34a853); /* Hover effect */
+    }
+
+
+.chechdkbox {
+    margin: 30px 10px 30px 0;
+}
+
+spandk {
+    color: #777;
+    font-size: 12px;
+    bottom: 68px;
+    position: absolute;
+}
+
+#logindk {
+    left: 50px; 
+}
+
+#registerdk {
+    left: 450px;
+}
+
+/* bang table trong gio hang*/
+tr {
+    border-bottom: 1px solid #ddd;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    padding: 8px;
+    text-align: center;
+    border-bottom: 1px solid #DDD;
+}
+th{text-align:center;}
+
+.khoitim{
+    height:800px
+}
+
+.MenuPage {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.pagination {
+    display: inline-block;
+    padding-left: 0;
+    margin: 20px 0;
+    border-radius: 4px;
+}
+
+    .pagination > li {
+        display: inline;
+        margin-right: 5px;
+    }
+
+        .pagination > li > a,
+        .pagination > li > span {
+            position: relative;
+            float: left;
+            padding: 6px 12px;
+            margin-left: -1px;
+            line-height: 1.428571429;
+            text-decoration: none;
+            background-color: #fff;
+            border: 1px solid #ddd;
+        }
+
+        .pagination > li:first-child > a,
+        .pagination > li:first-child > span {
+            margin-left: 0;
+            border-bottom-left-radius: 4px;
+            border-top-left-radius: 4px;
+        }
+
+        .pagination > li:last-child > a,
+        .pagination > li:last-child > span {
+            border-bottom-right-radius: 4px;
+            border-top-right-radius: 4px;
+        }
+
+        .pagination > li > a:hover,
+        .pagination > li > span:hover,
+        .pagination > li > a:focus,
+        .pagination > li > span:focus {
+            z-index: 2;
+            color: #23527c;
+            background-color: #eee;
+            border-color: #ddd;
+        }
+
+    .pagination > .active > a,
+    .pagination > .active > span,
+    .pagination > .active > a:hover,
+    .pagination > .active > span:hover,
+    .pagination > .active > a:focus,
+    .pagination > .active > span:focus {
+        z-index: 3;
+        color: #fff;
+        cursor: default;
+        background-color: #337ab7;
+        border-color: #337ab7;
+    }
+
+    .pagination > .disabled > span,
+    .pagination > .disabled > span:hover,
+    .pagination > .disabled > span:focus,
+    .pagination > .disabled > a,
+    .pagination > .disabled > a:hover,
+    .pagination > .disabled > a:focus {
+        color: #777;
+        cursor: not-allowed;
+        background-color: #fff;
+        border-color: #ddd;
+    }
+
+.tabtim {
+    margin-left: 6%;
+    height: auto;
+    border: 2px solid black;
+    border-radius: 8px;
+    padding: 5px;
+    margin-right: 80px;
+}
+
+.orange-button {
+    width: 20%;
+    padding: 5px;
+    height: 20%;
+    font-size: 20px;
+    background: linear-gradient(to right, #34a853, #8bc34a);
+    color: #FFFACD;
+    outline: none;
+    border-radius: 30px;
+    border: 0px;
+}
+
+.update {
+    width:50%;
+    text-align: center;
+    font-size: 15px;
+    background-color:lightblue;
+    color:black;
+    border-radius:5px;
+}
+
+.button {
+    width: 20%;
+    padding: 5px;
+    height: 20%;
+    font-size: 20px;
+    background: linear-gradient(to right, #34a853, #8bc34a);
+    color: #FFFACD;
+    outline: none;
+    border-radius: 30px;
+    border: 0px;
+    text-align: center;
+    text-decoration: none; /* Để bỏ gạch chân */
+    display: inline-block; /* Để nút có thể điều chỉnh kích thước theo CSS */
+}

@@ -1,0 +1,57 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model PagedList.PagedList<NhaSachMetMoi.Models.DonHang>
+
+@{
+    ViewBag.Title = "IndexDH";
+    Layout = "~/Views/Shared/Admin.cshtml";
+    <link href="~/Content/StyleSheet1.css" rel="stylesheet" />
+}
+
+<br />
+<h1 style="text-align:center">Quản lý đơn hàng</h1>
+<br />
+<table class="table">
+    <tr>
+        <th>
+           Mã đơn hàng
+        </th>
+        <th>
+           Ngày đặt hàng
+        </th>
+        <th>
+            Ngày giao dự kiến
+        </th>
+        <th>
+           Mã khách hàng
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaDH)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NgayDat)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NgayGiao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaKH)
+            </td>
+            <td>
+                @Html.ActionLink("Chỉnh Sửa", "EditDH", new { @MaDH = item.MaDH }) |
+                @Html.ActionLink("Chi Tiết", "DetailDH", new { @MaDH = item.MaDH }) |
+                @Html.ActionLink("Xóa", "DeleteDH", new { @MaDH = item.MaDH })
+            </td>
+        </tr>
+    }
+</table>
+<div style="clear:both"></div>
+<div class="MenuPage">
+    @Html.PagedListPager(Model, page => Url.Action("IndexDH", new { page = page }))
+</div>

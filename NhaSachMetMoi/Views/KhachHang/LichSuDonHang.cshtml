@@ -1,0 +1,32 @@
+﻿@model IEnumerable<NhaSachMetMoi.Models.DonHang>
+
+@{
+    ViewBag.Title = "Lịch sử đơn hàng";
+    Layout = "~/Views/Shared/Layoutpage.cshtml";
+}
+
+<h2>Lịch sử đơn hàng</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Mã đơn hàng</th>
+            <th>Ngày đặt</th>
+            <th>Trạng thái</th>
+            <th>Ngày giao</th>
+            <th>Chi tiết</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var donHang in Model)
+        {
+        <tr>
+            <td>@donHang.MaDH</td>
+            <td>@string.Format("{0:dd/MM/yyyy HH:mm:ss}", donHang.NgayDat)</td>
+            <td>@(donHang.NgayGiao.HasValue && donHang.NgayGiao.Value <= DateTime.Now ? "Đã giao" : "Chưa giao")</td>
+            <td>@(donHang.NgayGiao.HasValue ? string.Format("{0:dd/MM/yyyy HH:mm:ss}", donHang.NgayGiao.Value) : "Đang cập nhật..")</td>
+            <td>@Html.ActionLink("Xem chi tiết", "ChiTietDonHang", new { id = donHang.MaDH })</td>
+        </tr>
+        }
+    </tbody>
+</table>

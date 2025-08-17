@@ -1,0 +1,122 @@
+﻿@model NhaSachMetMoi.Models.KH
+@{
+    ViewBag.Title = "Sửa Thông Tin Cá Nhân";
+    Layout = "~/Views/Shared/Layoutpage.cshtml";
+        var today = DateTime.Now.ToString("yyyy-MM-dd");
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .content-wrapper {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container11 {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 450px;
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+            .form-group label {
+                display: block;
+                margin-bottom: 5px;
+                font-weight: bold;
+            }
+
+            .form-group input {
+                width: calc(100% - 20px);
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+            }
+
+                .form-group input[disabled] {
+                    background-color: #e9ecef;
+                    color: #6c757d;
+                    cursor: not-allowed;
+                }
+
+        .btn {
+            width: 100%;
+            padding: 10px 30px;
+            color: #FFFACD;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            display: block;
+            margin-top: 20px;
+            background: linear-gradient(to right, #34a853, #8bc34a);
+            outline: none;
+            border-radius: 30px;
+            border: 0px;
+        }
+    </style>
+</head>
+<body>
+    <div class="content-wrapper">
+        <div class="container11">
+            <h1>@ViewBag.Title</h1>
+            @using (Html.BeginForm("SuaTTCN", "KhachHang", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(model => model.MaKH)
+                <div class="form-group">
+                    @Html.LabelFor(model => model.TaiKhoan, "Tên Tài Khoản")
+                    @Html.TextBoxFor(model => model.TaiKhoan, new { @class = "form-control", @disabled = "disabled" })
+                </div>
+                <div class="form-group">
+                    Họ Tên
+                    @Html.EditorFor(model => model.HoTen, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+                <div class="form-group">
+                   Email
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+                <div class="form-group">
+                   Địa chỉ
+                    @Html.EditorFor(model => model.DiaChi, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+                <div class="form-group">
+                    Số điện thoại
+                    @Html.EditorFor(model => model.DienThoai, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+                <div class="form-group">
+                    <label>Ngày tháng năm sinh</label>
+                    @Html.TextBoxFor(model => model.NgaySinh, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date", @max = today })
+                </div>
+                <button type="submit" class="btn">Lưu Thay Đổi</button>
+            }
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,201 @@
+﻿@model NhaSachMetMoi.Models.Sach
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/Admin.cshtml";
+}
+
+<!-- Add your form as usual -->
+<div style="margin-left:15px">
+    @using (Html.BeginForm("Create", "Admin", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="control-label col-md-2" for="TenSach">Tên sản phẩm</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.TenSach, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="Gia">Giá</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Gia, new { htmlAttributes = new { @class = "form-control", @id = "Gia" } })
+                @Html.ValidationMessageFor(model => model.Gia, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="AnhBia">Ảnh bìa</label>
+            <div class="col-md-10">
+                <input type="file" name="fileupload" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="NamXB">Năm xuất bản</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NamXB, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="SoLuongTon">Số lượng tồn</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SoLuongTon, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="MaTL">Thể loại sản phẩm</label>
+            <div class="col-md-10">
+                @Html.DropDownList("MaTL", (SelectList)ViewBag.MaTL, "Chọn thể loại sản phẩm")
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="MaTG">Tác giả</label>
+            <div class="col-md-10">
+                @Html.DropDownList("MaTG", (SelectList)ViewBag.MaTG, "Chọn tác giả")
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="MaNXB">Nhà xuất bản</label>
+            <div class="col-md-10">
+                @Html.DropDownList("MaNXB", (SelectList)ViewBag.MaNXB, "Chọn nhà xuất bản/sản xuất")
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="Sale">Khuyến mãi</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Sale, new { htmlAttributes = new { @class = "form-control", @id = "Sale" } })
+                @Html.ValidationMessageFor(model => model.Sale, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="MoTa">Mô tả</label>
+            <div class="col-md-10">
+                <textarea name="MoTa" class="form-control"></textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Lưu" class="btn btn-default" onclick="return validateForm()" />
+            </div>
+        </div>
+    </div>
+    }
+</div>
+
+<!-- Modal for adding new MaTL -->
+<div class="modal fade" id="addMaTLModal" tabindex="-1" role="dialog" aria-labelledby="addMaTLModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addMaTLModalLabel">Thêm Mới Loại Sách</h5>
+            </div>
+            <div class="modal-body">
+                @using (Html.BeginForm("AddMaTL", "Admin", FormMethod.Post))
+                {
+                    <div class="form-group">
+                        @Html.Label("Tên Loại Sách")
+                        @Html.TextBox("TenTL", null, new { @class = "form-control" })
+                    </div>
+                    <button type="submit" class="btn btn-primary">Lưu</button>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for adding new MaTG -->
+<div class="modal fade" id="addMaTGModal" tabindex="-1" role="dialog" aria-labelledby="addMaTGModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addMaTGModalLabel">Thêm Mới Tác Giả</h5>
+            </div>
+            <div class="modal-body">
+                @using (Html.BeginForm("AddMaTG", "Admin", FormMethod.Post))
+                {
+                    <div class="form-group">
+                        @Html.Label("Tên Tác Giả")
+                        @Html.TextBox("TenTG", null, new { @class = "form-control" })
+                    </div>
+                    <button type="submit" class="btn btn-primary">Lưu</button>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for adding new MaNXB -->
+<div class="modal fade" id="addMaNXBModal" tabindex="-1" role="dialog" aria-labelledby="addMaNXBModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addMaNXBModalLabel">Thêm Mới Nhà Xuất Bản/Sản Xuất</h5>
+            </div>
+            <div class="modal-body">
+                @using (Html.BeginForm("AddMaNXB", "Admin", FormMethod.Post))
+                {
+                    <div class="form-group">
+                        @Html.Label("Tên Nhà Xuất Bản/Sản Xuất")
+                        @Html.TextBox("TenNXB", null, new { @class = "form-control" })
+                    </div>
+                    <button type="submit" class="btn btn-primary">Lưu</button>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    @Html.ActionLink("Quay lại trang trước", "IndexAd")
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#addMaTLModal').on('hidden.bs.modal', function () {
+                location.reload();
+            });
+            $('#addMaTGModal').on('hidden.bs.modal', function () {
+                location.reload();
+            });
+            $('#addMaNXBModal').on('hidden.bs.modal', function () {
+                location.reload();
+            });
+        });
+    </script>
+    <script>
+        function validateForm() {
+            var gia = document.getElementById("Gia").value;
+            var sale = document.getElementById("Sale").value;
+
+            if (gia < 0) {
+                alert("Giá không thể là số âm.");
+                return false;
+            }
+
+            if (sale < 0) {
+                alert("Khuyến mãi không thể là số âm.");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+}

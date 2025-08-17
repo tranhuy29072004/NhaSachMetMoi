@@ -1,0 +1,142 @@
+﻿@model NhaSachMetMoi.Models.KH
+@using NhaSachMetMoi.Models
+@{
+    Page.Title = "Xác Nhận Đơn Hàng";
+    Layout = "~/Views/Shared/Layoutpage.cshtml";
+    var lstGioHang = ViewBag.lstGioHang as List<GioHang>; // Replace CartItem with your actual item type
+
+}
+<header>
+ 
+</header>
+<div>
+    <h1 style="display: flex;flex-direction: row;align-content: stretch;justify-content: space-evenly;">Xác nhận thông tin đơn hàng</h1>
+    <div class="d-flex justify-content-center">
+        <table class="table mt-4 w-50">
+            <tr>
+            </tr>
+            <tr>
+                <td>Họ tên:</td>
+                <td>@Model.HoTen</td>
+            </tr>
+            <tr>
+                <td>Điện thoại:</td>
+                <td>@Model.DienThoai</td>
+
+            </tr>
+            <tr>
+                <td>Email:</td>
+                <td>@Model.Email</td>
+            </tr>
+            <tr>
+                <td>Địa Chỉ:</td>
+                <td>@Model.DiaChi</td>
+            </tr>
+
+        </table>
+     
+    </div>
+
+    @if (lstGioHang != null && lstGioHang.Any())
+    {
+        <div class="d-flex justify-content-center">
+            <table id="GioHang" class="w-50">
+                <thead>
+                    <tr>
+                        <th width="18%">Ảnh bìa</th>
+                        <th width="18%">Tên sách</th>
+                        <th width="18%">Khuyến mãi</th>
+                        <th width="18%">Đơn giá</th>
+                        <th width="18%">Số lượng</th>
+                        <th width="18%">Thành tiền</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in lstGioHang)
+                    {
+                        <tr>
+                            <td><a href="@Url.Action("XemCT","TrangChu",new { @MaSach =item.iMaSach})"><img src="@Url.Content("~/Content/images/sach/"+item.sAnhBia)" style="width:50%; height:150px"></a></td>
+                            <td>@item.sTenSach</td>
+                            <td>@item.iSale%</td>
+                            <td>
+                                <span style="color:red">@string.Format("{0:0,0}", (decimal)item.dGia * (1 - (int)item.iSale / 100m)).Replace(",", ".") VNĐ</span>
+                            </td>
+                            <td>@item.iSoLuong</td>
+                            <td>
+                                <span style="color:red">@string.Format("{0:0,0}", item.dThanhTien).Replace(",", ".") VNĐ</span>
+                            </td>
+                        </tr>
+
+                    }
+                    <tr>
+                        <td colspan="4" style="text-align:right; font-weight:bold">Tổng:</td>
+                        <td style="color:red; font-weight:bold">@string.Format("{0:0,0}", GioHang.TongTien(lstGioHang)).Replace(",", ".") VNĐ</td>
+                    </tr>
+                    @if (GioHang.TongTien(lstGioHang) > 00000)
+                    {
+                        <tr>
+                            @if (ViewBag.giamGia != null)
+                            {
+                                <td colspan="4" style="text-align:right; font-weight:bold">Giảm Giá:</td>
+
+                                <td>
+                                    <span style="color: red; font-weight: bold">@ViewBag.giamGia% - @string.Format("{0:0,0}", (decimal)GioHang.TongTien(lstGioHang) * ((int)ViewBag.giamGia / 100m)).Replace(",", ".") VNĐ</span>
+
+                                </td>
+                            }
+                            else
+                            {
+                                using (Html.BeginForm("XacNhanDonHang", "GioHang", FormMethod.Post))
+                                {
+                                    <td colspan="4" style="text-align:right; font-weight:bold">Mã Giảm Giá:</td>
+
+                                    <td style="color:red; font-weight:bold">
+                                        <div class="d-flex">
+                                            @Html.TextBox("maCode", null, new { placeholder = "Nhập mã khuyến mãi", style = "padding: 10px;" })
+                                            <button type="submit" class="orange-button" style="width: 200px;height: 30px;">Áp dụng</button>
+                                        </div>
+                                        <p>@ViewBag.ThongBao</p>
+
+                                    </td>
+
+                                }
+
+
+                            }
+
+
+                        </tr>
+                    }
+
+
+
+                    <tr>
+                        <td colspan="4" style="text-align:right; font-weight:bold">Thành Tiền:</td>
+                        @if (ViewBag.giamGia != null)
+                        {
+                            <td style="color:red; font-weight:bold">@string.Format("{0:0,0}", (decimal)GioHang.TongTien(lstGioHang) - ((decimal)GioHang.TongTien(lstGioHang) * ((int)ViewBag.giamGia / 100m))).Replace(",", ".") VNĐ</td>
+                        }
+                        else
+                        {
+                            <td style="color:red; font-weight:bold">@string.Format("{0:0,0}", (decimal)GioHang.TongTien(lstGioHang)).Replace(",", ".") VNĐ</td>
+                        }
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    }
+    else
+    {
+        <p>Your shopping cart is empty.</p>}
+
+<div class="d-flex justify-content-end" style=" display: flex; flex-wrap: nowrap; text-align: center; flex-direction: row-reverse;">
+
+    <a href="@Url.Action("Dathangthanhcong", "GioHang")" class="orange-button">
+        Đặt hàng
+    </a>
+    <a href="@Url.Action("SuaXacNhanTT", "GioHang", new { id = Model.MaKH })" class="orange-button">Thay đổi thông tin</a>
+
+
+</div>
+</div>

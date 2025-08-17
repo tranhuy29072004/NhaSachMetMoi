@@ -1,0 +1,60 @@
+﻿@using NhaSachMetMoi.Models;
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link href="~/Content/StyleSheet1.css" rel="stylesheet" />
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="navigation">
+                <ul>
+                    <li>
+                        <a>
+                            <div class="title">
+                                <h2>ATHENA</h2>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        @if (Session["TaiKhoan"] != null)
+                        {
+                            var kh = (Admin)Session["TaiKhoan"];
+                            <span style="font-size:20px; color:white">Xin chào, @kh.TaiKhoan</span>
+                            <a href="@Url.Action("Logout", "DangNhap")">Đăng Xuất</a>
+                        }
+                    </li>
+                    <li>
+                        <a href="~/Admin/IndexAd">
+                            <span class="icon"><ion-icon name="business-outline"></ion-icon></span>
+                            <span class="title">Quản lí Sản Phẩm</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="~/Admin/IndexDH">
+                            <span class="icon"><ion-icon name="file-tray-full-outline"></ion-icon></span>
+                            <span class="title">Đơn hàng</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="~/Admin/IndexKH">
+                            <span class="icon"><ion-icon name="person-outline"></ion-icon></span>
+                            <span class="title">Khách hàng</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="main">
+                <div>
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+    </header>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,55 @@
+﻿@model NhaSachMetMoi.Models.DonHang
+
+@{
+    ViewBag.Title = "DeleteDH";
+    Layout = "~/Views/Shared/Admin.cshtml";
+    <link href="~/Content/StyleSheet1.css" rel="stylesheet" />
+}
+
+<h3>Bạn có chắc muốn xóa đơn hàng ??? </h3>
+<div style="margin-left:15px">
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MaDH)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaDH)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NgayDat)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NgayDat)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NgayGiao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NgayGiao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MaKH)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaKH)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Xóa" class="btnxoa" /> |
+            @Html.ActionLink("Quay lại trang trước", "IndexDH")
+        </div>
+    }
+</div>

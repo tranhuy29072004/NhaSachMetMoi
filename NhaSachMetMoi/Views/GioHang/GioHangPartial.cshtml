@@ -1,0 +1,22 @@
+﻿<style>
+    #rad-cart {
+        color:white;
+        width: 25px;
+        height: 25px;
+        font-size: 12px;
+        background-color: #eb1717;
+        border-radius: 50%;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+    }
+</style>
+<div class="my-styled-element">
+    @ViewBag.TongSoLuong
+</div>
+<script>
+    if (@ViewBag.TongSoLuong> 0) { document.getElementById("rad-cart").style.display = "inline-flex"; }
+</script>
+
+    

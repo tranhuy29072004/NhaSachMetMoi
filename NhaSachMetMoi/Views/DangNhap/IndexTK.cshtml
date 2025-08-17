@@ -1,0 +1,123 @@
+﻿@model NhaSachMetMoi.Models.KH
+
+@{
+    ViewBag.Title = "IndexTK";
+    Layout = "~/Views/Shared/Layoutpage.cshtml";
+    var today = DateTime.Now.ToString("yyyy-MM-dd");
+}
+
+<div>
+    <div class="formdkbox">
+        <img src="~/Content/images/logo1.png" alt="Logo" style="display: block; margin: 0 auto; width: 100px; height: auto;" />
+        <div class="buttondkbox">
+            <div id="btndk"></div>
+            <button type="button" class="toggledkbtn" onclick="logindk(); setAction('logindk')">Đăng nhập</button>
+            <button type="button" class="toggledkbtn" onclick="registerdk(); setAction('registerdk')">Đăng ký</button>
+        </div>
+
+        <div id="logindk" class="inputdkgroup">
+            @using (Html.BeginForm("DangNhap", "DangNhap", FormMethod.Post))
+            {
+                {
+                    @Html.AntiForgeryToken()
+
+                    <form action="/action_page.php" method="post">
+                        <h3>Tài Khoản:</h3>
+                        @Html.TextBox("txtTaiKhoan", null, new { @class = "inputdkfieldd", placeholder = "Nhập tên người dùng..." })
+                        <h3>Mật Khẩu</h3>
+                        @Html.Password("txtMatKhau", null, new { @class = "inputdkfieldd", placeholder = "Nhập mật khẩu..." })
+                        <button type="submit" class="submitdkbtn">Đăng nhập</button>
+                        <h4>@ViewBag.ThongBao</h4>
+                    </form>
+                }
+            }
+        </div>
+
+        <div id="registerdk" class="inputdkgroup">
+            @using (Html.BeginForm("DangKy", "DangNhap", FormMethod.Post))
+            {
+                {
+                    @Html.AntiForgeryToken()
+
+                    <form action="/action_page.php" method="post">
+
+                        <div class="form-group">
+                            @Html.Label("HoTen", "Họ Tên", new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.HoTen, new { htmlAttributes = new { @class = "inputdkfield form-control" } })
+                                @Html.ValidationMessageFor(model => model.HoTen, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.Label("TaiKhoan", "Tài Khoản", new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.TaiKhoan, new { htmlAttributes = new { @class = "inputdkfield form-control" } })
+                                @Html.ValidationMessageFor(model => model.TaiKhoan, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.Label("MatKhau", "Mật Khẩu", new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.PasswordFor(model => model.MatKhau, new { @class = "inputdkfield form-control" })
+                                @Html.ValidationMessageFor(model => model.MatKhau, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.Label("Email", "Email", new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "inputdkfield form-control" } })
+                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.Label("DiaChi", "Địa Chỉ", new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.DiaChi, new { htmlAttributes = new { @class = "inputdkfield form-control" } })
+                                @Html.ValidationMessageFor(model => model.DiaChi, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.Label("DienThoai", "Điện Thoại", new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.DienThoai, new { htmlAttributes = new { @class = "inputdkfield form-control" } })
+                                @Html.ValidationMessageFor(model => model.DienThoai, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group"   style="padding: 10px";>
+                            @Html.Label("NgaySinh", "Ngày Sinh", new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(model => model.NgaySinh, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date", @max = today })
+                                @Html.ValidationMessageFor(model => model.NgaySinh, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <button type="submit" class="submitdkbtn">Đăng ký</button>
+                    </form>
+                }
+            }
+        </div>
+
+    </div>
+
+    <script>
+        var x = document.getElementById("logindk");
+        var y = document.getElementById("registerdk");
+        var z = document.getElementById("btndk");
+
+        function registerdk() {
+            x.style.left = "-400px";
+            y.style.left = "50px";
+            z.style.left = "110px";
+        }
+        function logindk() {
+            x.style.left = "50px";
+            y.style.left = "450px";
+            z.style.left = "0";
+        }
+    </script>
+</div>

@@ -1,0 +1,120 @@
+﻿@model NhaSachMetMoi.Models.Sach
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/Admin.cshtml";
+    <link href="~/Content/StyleSheet1.css" rel="stylesheet" />
+}
+
+<h3>Bạn có chắc muốn xóa sản phẩm ??? </h3>
+<div style="margin-left:15px">
+
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MaSach)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaSach)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TenSach)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenSach)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Gia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Gia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.KichThuoc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KichThuoc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MoTa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MoTa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AnhBia)
+        </dt>
+
+        <dd>
+            <img src="@Url.Content("~/Content/images/sach/" + Model.AnhBia)" alt="Ảnh bìa" class="img-thumbnail" />
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NamXB)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NamXB)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SoLuongTon)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SoLuongTon)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MaTL)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TL.TenTL)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MaTG)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TG.TenTG)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MaNXB)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NXB.TenNXB)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sale)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sale)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Xóa" class="btnxoa" /> |
+            @Html.ActionLink("Quay lại trang trước", "IndexAd")
+        </div>
+    }
+</div>

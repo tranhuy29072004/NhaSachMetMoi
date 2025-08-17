@@ -1,0 +1,61 @@
+﻿
+@using NhaSachMetMoi.Models
+@{
+    Layout = "~/Views/Shared/Layoutpage.cshtml";
+}
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        color: #333;
+        margin: 0;
+        padding: 0;
+    }
+
+    .dathangthanhcong {
+        max-width: 600px;
+        margin: 50px auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+        .dathangthanhcong h1, .dathangthanhcong h2, .dathangthanhcong h3 {
+            color: #333;
+        }
+
+        .dathangthanhcong h2 {
+            color: #007bff;
+        }
+
+        .dathangthanhcong div {
+            margin-top: 20px;
+        }
+
+        .dathangthanhcong a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+            .dathangthanhcong a:hover {
+                text-decoration: underline;
+            }
+</style>
+<div class="dathangthanhcong">
+    <h1>Đặt hàng thành công</h1>
+    <h3>Hàng sẽ được giao đến bạn sau 2 - 3 ngày</h3>
+    <h4>(Không tính chủ nhật và ngày lễ)</h4>
+    @if (Session["TaiKhoan"] != null)
+    {
+        var kh = (KH)Session["TaiKhoan"];
+        <h2>Cảm ơn, @kh.TaiKhoan đã tin tưởng chúng tôi @ViewBag.giamGiaA</h2>
+    }
+</div>
+
+<div style="font-size: 20px; margin-left:10px">
+    <a href="~/Trangchu/Index">Quay lại trang chủ</a>
+</div>
+

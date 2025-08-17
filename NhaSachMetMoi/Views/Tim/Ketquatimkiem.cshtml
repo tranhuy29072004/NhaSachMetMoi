@@ -1,0 +1,49 @@
+﻿@using PagedList.Mvc;
+@using PagedList;
+@model IPagedList<NhaSachMetMoi.Models.Sach>
+<link href="~/Content/Layoutpage.css" rel="stylesheet" />
+
+@{
+    ViewBag.Title = "Ketquatimkiem";
+    Layout = "~/Views/Shared/Layoutpage.cshtml";
+}
+<h1>@ViewBag.ThongBao</h1>
+<div class="tabtim">
+    @{
+        foreach (var item in Model)
+        {
+            <div id="SanPham">
+                <a href="@Url.Action("XemCT","TrangChu", new {@masach=item.MaSach})">
+                    <br />
+                    <div id="AnhBia" style="text-align:center">
+                        <img src="@Url.Content("~/Content/images/sach/"+item.AnhBia)" width="200" height="250">
+                        <div class="thumb-discount-label"> <span>@item.Sale%</span> </div>
+                    </div>
+                    <div id="TenSach">
+                        @{
+                            string truncatedTitle = item.TenSach.Length > 20 ? item.TenSach.Substring(0, 20) + "..." : item.TenSach;
+                        }
+                        @truncatedTitle
+                    </div>
+                    <div id="DonGia">
+                        <span>
+                            <b style="color:red;font-size:18px">@string.Format("{0:0,0}", (decimal)item.Gia * (1 - (int)item.Sale / 100m)).Replace(",", ".") VNĐ</b><br />
+                            <del style="color:black; font-size:14px">@string.Format("{0:0,0}", @item.Gia).Replace(",", ".") VNĐ</del>
+                            <br />
+                        </span>
+                    </div>
+                </a>
+                <div id="NutMua">
+                    @using (Html.BeginForm("ThemGioHang", "GioHang", new { @iMaSach = item.MaSach, @strURL = Request.Url.ToString() }))
+                    {
+                        <span style="text-align:center; border:0; cursor:pointer;" onclick="this.closest('form').submit();">Thêm vào giỏ</span>
+                    }
+                </div>
+            </div>
+        }
+    }
+    <div style="clear:both"></div>
+    <div class="MenuPage">
+        @Html.PagedListPager(Model, page => Url.Action("Ketquatimkiem", new { page = page, @sTukhoa = ViewBag.TuKhoa }))
+    </div>
+</div>

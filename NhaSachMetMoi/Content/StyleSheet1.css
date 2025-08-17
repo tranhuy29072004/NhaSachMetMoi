@@ -1,0 +1,297 @@
+﻿@import url('https://fonts.googleapis.com/css?family=Poppins: 200,300,400,500,600,700,800,900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+.container {
+    position: relative;
+    width: 100%;
+}
+
+.navigation {
+    position: fixed;
+    width: 15%;
+    height: 100%;
+    background-color: #2E8B57;
+    color: #FFFACD;
+    transition: 0.5s;
+    overflow: hidden;
+}
+
+    .navigation ul {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+    }
+
+        .navigation ul li {
+            position: relative;
+            width: 100%;
+            list-style: none;
+        }
+
+            .navigation ul li:hover {
+                background: orange;
+            }
+
+            .navigation ul li:nth-child(1) {
+                margin-bottom: 20px;
+            }
+
+                .navigation ul li:nth-child(1):hover {
+                    background: transparent;
+                }
+
+            .navigation ul li a {
+                position: relative;
+                display: block;
+                width: 100%;
+                color: #FFFACD;
+                display: flex;
+                text-decoration: none;
+             }
+
+                .navigation ul li a .icon {
+                    position: relative;
+                    display: block;
+                    min-width: 60px;
+                    height: 60px;
+                    color: #FFFACD;
+                    line-height: 60px;
+                    text-align: center;
+                }
+
+                    .navigation ul li a .icon .fa {
+                        color: #FFFACD;
+                        font-size: 24px;
+                    }
+
+                .navigation ul li a .title {
+                    position: relative;
+                    display: block;
+                    padding: 0 10px;
+                    color: #FFFACD;
+                    height: 60px;
+                    line-height: 60px;
+                    white-space: nowrap;
+                }
+
+.main {
+    position: absolute;
+    width: 85%;
+    left: 15%;
+    min-height: 100vh;
+    background-color: whitesmoke;
+    transition: 0.5s;
+}
+
+    .main .topbar {
+        width: 100%;
+        background: white;
+        height: 60px;
+        padding: 0 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+.search {
+    position: relative;
+    width: 400px;
+    margin: 0 10px;
+}
+
+    .search label {
+        position: relative;
+        width: 100%;
+    }
+
+        .search label input {
+            width: 100%;
+            height: 40px;
+            border-radius: 40px;
+            padding: 5px 20px;
+            padding-left: 35px;
+            outline: none;
+            border: 1px solid rgba(0,0,0,0.2);
+        }
+
+        .search label .fa {
+            position: absolute;
+            left: 15px;
+            top: 4px;
+        }
+.MenuPage {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.pagination {
+    display: inline-block;
+    padding-left: 0;
+    margin: 20px 0;
+    border-radius: 4px;
+}
+
+    .pagination > li {
+        display: inline;
+        margin-right: 5px;
+    }
+
+        .pagination > li > a,
+        .pagination > li > span {
+            position: relative;
+            float: left;
+            padding: 6px 12px;
+            margin-left: -1px;
+            line-height: 1.428571429;
+            text-decoration: none;
+            background-color: #fff;
+            border: 1px solid #ddd;
+        }
+
+        .pagination > li:first-child > a,
+        .pagination > li:first-child > span {
+            margin-left: 0;
+            border-bottom-left-radius: 4px;
+            border-top-left-radius: 4px;
+        }
+
+        .pagination > li:last-child > a,
+        .pagination > li:last-child > span {
+            border-bottom-right-radius: 4px;
+            border-top-right-radius: 4px;
+        }
+
+        .pagination > li > a:hover,
+        .pagination > li > span:hover,
+        .pagination > li > a:focus,
+        .pagination > li > span:focus {
+            z-index: 2;
+            color: #23527c;
+            background-color: #eee;
+            border-color: #ddd;
+        }
+
+    .pagination > .active > a,
+    .pagination > .active > span,
+    .pagination > .active > a:hover,
+    .pagination > .active > span:hover,
+    .pagination > .active > a:focus,
+    .pagination > .active > span:focus {
+        z-index: 3;
+        color: #fff;
+        cursor: default;
+        background-color: #337ab7;
+        border-color: #337ab7;
+    }
+
+    .pagination > .disabled > span,
+    .pagination > .disabled > span:hover,
+    .pagination > .disabled > span:focus,
+    .pagination > .disabled > a,
+    .pagination > .disabled > a:hover,
+    .pagination > .disabled > a:focus {
+        color: #777;
+        cursor: not-allowed;
+        background-color: #fff;
+        border-color: #ddd;
+    }
+
+#table_adm {
+    margin-left: 2px;
+    border:2px solid grey;
+    border-collapse: collapse
+}
+th, td, tr {
+    border-bottom: 2px solid grey;
+    border-right: 2px solid grey;
+    border-collapse: collapse
+}
+
+h1 {
+    color: #333;
+}
+
+h3 {
+    color: #333;
+}
+
+.dl-horizontal {
+    margin-bottom: 20px;
+}
+
+dt {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+dd {
+    margin-bottom: 10px;
+    margin-left: 0;
+}
+
+p {
+    margin-top: 20px;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+    margin-right: 10px;
+}
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+img.img-thumbnail {
+    max-width: 200px;
+    max-height: 200px;
+    margin-bottom: 10px;
+}
+.btnxoa {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+    .btnxoa:hover {
+        background-color: #c82333;
+        color: #fff;
+    }
+
+.form-actions {
+    margin-top: 20px;
+}
+.form-group {
+    margin-bottom: 20px;
+}
+
+.control-label {
+    font-weight: bold;
+}
+
+
+input[type="date"] {
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+.btnluu {
+    background-color: #007bff;
+    color: #fff;
+}
+
+    .btnluu:hover {
+        background-color: #0056b3;
+        color: #fff;
+    }

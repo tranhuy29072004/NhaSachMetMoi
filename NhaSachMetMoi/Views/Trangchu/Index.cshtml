@@ -1,0 +1,376 @@
+﻿@using NhaSachMetMoi.Models;
+@model List<Sach>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layoutpage.cshtml";
+}
+
+
+<div class="slideshow-container">
+
+    <div class="mySlides fade">
+        <img src="https://theme.hstatic.net/1000363117/1000911694/14/ms_banner_img1.jpg?v=581" style="width:100%; height:320px">
+    </div>
+
+    <div class="mySlides fade">
+        <img src="https://theme.hstatic.net/1000363117/1000911694/14/ms_banner_img2.jpg?v=581" style="width: 100%; height:320px">
+    </div>
+
+    <div class="mySlides fade">
+        <img src="https://theme.hstatic.net/1000363117/1000911694/14/ms_banner_img3.jpg?v=581" style="width: 100%; height: 320px">
+    </div>
+
+    <a class="prev" onclick="plusSlides(-1)">❮</a>
+    <a class="next" onclick="plusSlides(1)">❯</a>
+
+    <div style="text-align:center">
+        <span class="dot" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(2)"></span>
+        <span class="dot" onclick="currentSlide(3)"></span>
+    </div>
+</div>
+
+<script>
+    let slideIndex = 1;
+    showSlides(slideIndex);
+
+    function plusSlides(n) {
+        showSlides(slideIndex += n);
+    }
+
+    function currentSlide(n) {
+        showSlides(slideIndex = n);
+    }
+
+    function showSlides(n) {
+        let i;
+        let slides = document.getElementsByClassName("mySlides");
+        let dots = document.getElementsByClassName("dot");
+        if (n > slides.length) { slideIndex = 1 }
+        if (n < 1) { slideIndex = slides.length }
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+        }
+        slides[slideIndex - 1].style.display = "block";
+        dots[slideIndex - 1].className += " active";
+
+        slideIndex++;
+        if (slideIndex > slides.length) { slideIndex = 1 }
+        setTimeout(() => showSlides(slideIndex), 10000);
+    }
+</script>
+
+<br />
+
+<section>
+    <hr style="width: 80%; margin: auto" />
+    <nav>
+        <ul class="theloai">
+            <li><a class="tablink" onclick="openPage('SGK', this)" id="defaultOpen">SÁCH GIÁO KHOA</a></li>
+            <li><a class="tablink" onclick="openPage('TT', this)">TRUYỆN TRANH</a></li>
+            <li><a class="tablink" onclick="openPage('VH', this)">ĐỒ DÙNG HỌC TẬP</a></li>
+            <li><a class="tablink" onclick="openPage('NN', this)">SÁCH HỌC NGOẠI NGỮ</a></li>
+            <li><a class="tablink" onclick="openPage('TL', this)">TÂM LÝ - KỸ NĂNG SỐNG</a></li>
+        </ul>
+    </nav>
+    <div id="SGK" class="tabcontent">
+        @{int i = 0;}
+        @{
+            foreach (var item in Model.Where(n => n.MaTL == 1).Take(8))
+            {
+                i++;
+                <div id="SanPham">
+                            <a href="@Url.Action("XemCT","TrangChu", new {@masach=item.MaSach})">
+                                <br />
+                                <div id="AnhBia" style="text-align:center">
+                                    <img src="@Url.Content("~/Content/images/sach/"+item.AnhBia)" width="200" height="250">
+                                    <div class="thumb-discount-label"> <span>@item.Sale%</span> </div>
+                                </div>
+                                <div id="TenSach">
+                                    <div class="">
+                                        @{
+                                            string truncatedTitle = item.TenSach.Length > 20 ? item.TenSach.Substring(0, 20) + "..." : item.TenSach;
+                                        }
+                                        @truncatedTitle
+                                    </div>
+                                </div>
+
+                                <div id="DonGia">
+                                    <span>
+                                        <b style="color:red;font-size:18px">@string.Format("{0:0,0}", (decimal)item.Gia * (1 - (int)item.Sale / 100m)).Replace(",", ".") VNĐ</b><br />
+                                        <del style="color:black; font-size:14px">@string.Format("{0:0,0}", @item.Gia).Replace(",", ".") VNĐ</del>
+                                        <br />
+                                    </span>
+                                </div>
+                            </a>
+                    <div id="NutMua">
+                        @using (Html.BeginForm("ThemGioHang", "GioHang", new { @iMaSach = item.MaSach, @strURL = Request.Url.ToString() }))
+                        {
+                            <span style="text-align:center; border:0; cursor:pointer;" onclick="this.closest('form').submit();">Thêm vào giỏ</span>
+                        }
+                    </div>
+                </div>
+                if (i == 4)
+                {
+                    <div style="clear:both"></div>
+                }
+            }
+        }
+        <div style="clear:both"></div>
+        <div id="XemThemLink" style="text-align:right">
+            <a href="/TrangChu/SachTL?matl=1" class="button">Xem Thêm</a>
+        </div>
+    </div>
+
+    <div id="TT" class="tabcontent">
+        @{int z = 0;}
+        @{
+            foreach (var item in Model.Where(n => n.MaTL == 2).Take(8))
+            {
+                z++;    
+                <div id="SanPham">
+                            <a href="@Url.Action("XemCT","TrangChu", new {@masach=item.MaSach})">
+                                <br />
+                                <div id="AnhBia" style="text-align:center">
+                                    <img src="@Url.Content("~/Content/images/sach/"+item.AnhBia)" width="200" height="250">
+                                    <div class="thumb-discount-label"> <span>@item.Sale%</span> </div>
+                                </div>
+                                <div id="TenSach">
+                                    <div class="">
+                                        @{
+                                            string truncatedTitle = item.TenSach.Length > 20 ? item.TenSach.Substring(0, 20) + "..." : item.TenSach;
+                                        }
+                                        @truncatedTitle
+                                    </div>
+                                </div>
+
+                                <div id="DonGia">
+                                    <span>
+                                        <b style="color: red; font-size: 18px">@string.Format("{0:0,0}", (decimal)item.Gia * (1 - (int)item.Sale / 100m)).Replace(",", ".") VNĐ</b><br />
+                                        <del style="color:black; font-size:14px">@string.Format("{0:0,0}", @item.Gia).Replace(",", ".") VNĐ</del>
+                                        <br />
+                                    </span>
+                                </div>
+                            </a>
+                    <div id="NutMua">
+                        @using (Html.BeginForm("ThemGioHang", "GioHang", new { @iMaSach = item.MaSach, @strURL = Request.Url.ToString() }))
+                        {
+                            <span style="text-align:center; border:0; cursor:pointer;" onclick="this.closest('form').submit();">Thêm vào giỏ</span>
+                        }
+                    </div>
+                </div>
+                if (z == 4)
+                {
+                    <div style="clear:both"></div>
+                }
+            }
+        }
+        <div style="clear:both"></div>
+        <div id="XemThemLink" style="text-align:right">
+            <a href="@Url.Action("SachTL","TrangChu", new {@matl=2})">Xem Thêm...</a>
+        </div>
+    </div>
+
+    <div id="VH" class="tabcontent">
+        @{int y = 0;}
+        @{
+            foreach (var item in Model.Where(n => n.MaTL == 7).Take(8))
+            {
+                y++;
+                <div id="SanPham">
+                            <a href="@Url.Action("XemCT","TrangChu", new {@masach=item.MaSach})">
+                                <br />
+                                <div id="AnhBia" style="text-align:center">
+                                    <img src="@Url.Content("~/Content/images/sach/"+item.AnhBia)" width="200" height="250">
+                                    <div class="thumb-discount-label"> <span>@item.Sale%</span> </div>
+                                </div>
+                                <div id="TenSach">
+                                    <div class="">
+                                        @{
+                                            string truncatedTitle = item.TenSach.Length > 20 ? item.TenSach.Substring(0, 20) + "..." : item.TenSach;
+                                        }
+                                        @truncatedTitle
+                                    </div>
+                                </div>
+
+                                <div id="DonGia">
+                                    <span>
+                                        <b style="color: red; font-size: 18px">@string.Format("{0:0,0}", (decimal)item.Gia * (1 - (int)item.Sale / 100m)).Replace(",", ".") VNĐ</b><br />
+                                        <del style="color:black; font-size:14px">@string.Format("{0:0,0}", @item.Gia).Replace(",", ".") VNĐ</del>
+                                        <br />
+                                    </span>
+                                </div>
+                            </a>
+                    <div id="NutMua">
+                        @using (Html.BeginForm("ThemGioHang", "GioHang", new { @iMaSach = item.MaSach, @strURL = Request.Url.ToString() }))
+                        {
+                            <span style="text-align:center; border:0; cursor:pointer;" onclick="this.closest('form').submit();">Thêm vào giỏ</span>
+                        }
+                    </div>
+                </div>
+                if (y == 4)
+                {
+                    <div style="clear:both"></div>
+                }
+            }
+        }
+        <div style="clear:both"></div>
+        <div id="XemThemLink" style="text-align:right">
+            <a href="@Url.Action("SachTL","TrangChu", new {@matl=3})">Xem Thêm...</a>
+        </div>
+    </div>
+
+    <div id="NN" class="tabcontent">
+        @{int x = 0;}
+        @{
+            foreach (var item in Model.Where(n => n.MaTL == 4).Take(8))
+            {
+                x++;
+                <div id="SanPham">
+                            <a href="@Url.Action("XemCT","TrangChu", new {@masach=item.MaSach})">
+                                <br />
+                                <div id="AnhBia" style="text-align:center">
+                                    <img src="@Url.Content("~/Content/images/sach/"+item.AnhBia)" width="200" height="250">
+                                    <div class="thumb-discount-label"> <span>@item.Sale%</span> </div>
+                                </div>
+                                <div id="TenSach">
+                                    <div class="">
+                                        @{
+                                            string truncatedTitle = item.TenSach.Length > 20 ? item.TenSach.Substring(0, 20) + "..." : item.TenSach;
+                                        }
+                                        @truncatedTitle
+                                    </div>
+                                </div>
+
+                                <div id="DonGia">
+                                    <span>
+                                        <b style="color: red; font-size: 18px">@string.Format("{0:0,0}", (decimal)item.Gia * (1 - (int)item.Sale / 100m)).Replace(",", ".") VNĐ</b><br />
+                                        <del style="color:black; font-size:14px">@string.Format("{0:0,0}", @item.Gia).Replace(",", ".") VNĐ</del>
+                                        <br />
+                                    </span>
+                                </div>
+                            </a>
+                    <div id="NutMua">
+                        @using (Html.BeginForm("ThemGioHang", "GioHang", new { @iMaSach = item.MaSach, @strURL = Request.Url.ToString() }))
+                        {
+                            <span style="text-align:center; border:0; cursor:pointer;" onclick="this.closest('form').submit();">Thêm vào giỏ</span>
+                        }
+                    </div>
+                </div>
+                if (x == 4)
+                {
+                    <div style="clear:both"></div>
+                }
+            }
+        }
+        <div style="clear:both"></div>
+        <div id="XemThemLink" style="text-align:right">
+            <a href="@Url.Action("SachTL","TrangChu", new {@matl=4})">Xem Thêm...</a>
+        </div>
+    </div>
+
+    <div id="TL" class="tabcontent">
+        @{int v = 0;}
+        @{
+            foreach (var item in Model.Where(n => n.MaTL == 5).Take(8))
+            {
+                v++;
+                <div id="SanPham">
+                            <a href="@Url.Action("XemCT","TrangChu", new {@masach=item.MaSach})">
+                                <br />
+                                <div id="AnhBia" style="text-align:center">
+                                    <img src="@Url.Content("~/Content/images/sach/"+item.AnhBia)" width="200" height="250">
+                                    <div class="thumb-discount-label"> <span>@item.Sale%</span> </div>
+                                </div>
+                                <div id="TenSach">
+                                    <div class="">
+                                        @{
+                                            string truncatedTitle = item.TenSach.Length > 20 ? item.TenSach.Substring(0, 20) + "..." : item.TenSach;
+                                        }
+                                        @truncatedTitle
+                                    </div>
+                                </div>
+
+                                <div id="DonGia">
+                                    <span>
+                                        <b style="color: red; font-size: 18px">@string.Format("{0:0,0}", (decimal)item.Gia * (1 - (int)item.Sale / 100m)).Replace(",", ".") VNĐ</b><br />
+                                        <del style="color:black; font-size:14px">@string.Format("{0:0,0}", @item.Gia).Replace(",", ".") VNĐ</del>
+                                        <br />
+                                    </span>
+                                </div>
+                            </a>
+                    <div id="NutMua">
+                        @using (Html.BeginForm("ThemGioHang", "GioHang", new { @iMaSach = item.MaSach, @strURL = Request.Url.ToString() }))
+                        {
+                            <span style="text-align:center; border:0; cursor:pointer;" onclick="this.closest('form').submit();">Thêm vào giỏ</span>
+                        }
+                    </div>
+                </div>
+                if (v == 4)
+                {
+                    <div style="clear:both"></div>
+                }
+            }
+        }
+        <div style="clear:both"></div>
+        <div id="XemThemLink" style="text-align:center">
+            <a href="@Url.Action("SachTL","TrangChu", new {@matl=5})">Xem Thêm</a>
+        </div>
+    </div>
+</section>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var titleElement = document.getElementById("TenSach");
+        var maxTitleLength = 40;
+        var originalTitle = titleElement.innerText;
+
+        if (originalTitle.length > maxTitleLength) {
+            var truncatedTitle = originalTitle.substring(0, maxTitleLength) + "...";
+            titleElement.innerText = truncatedTitle;
+        }
+    });
+</script>
+
+<script>
+    function openPage(pageName, elmnt, color) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablink");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].style.backgroundColor = "";
+        }
+        document.getElementById(pageName).style.display = "block";
+        elmnt.style.backgroundColor = color;
+    }
+    document.getElementById("defaultOpen").click();
+    function openPage(pageName, elmnt) {
+        // Hide all elements with class="tabcontent" by default */
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+
+        // Remove the background color of all tablinks/buttons
+        tablinks = document.getElementsByClassName("tablink");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].classList.remove("active");
+        }
+
+        // Show the specific tab content
+        document.getElementById(pageName).style.display = "block";
+
+        // Add the specific color to the button used to open the tab content
+        elmnt.classList.add("active");
+    }
+
+    // Get the element with id="defaultOpen" and click on it
+    document.getElementById("defaultOpen").click();
+</script>

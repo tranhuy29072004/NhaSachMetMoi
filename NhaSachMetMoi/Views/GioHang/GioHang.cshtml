@@ -1,0 +1,72 @@
+﻿@using NhaSachMetMoi.Models;
+@model List<GioHang>
+
+<link href="~/Content/Layoutpage.css" rel="stylesheet" />
+@{
+    ViewBag.Title = "GioHang";
+    Layout = "~/Views/Shared/Layoutpage.cshtml";
+}
+<script>
+    function checkValue(input) {
+        if (input.value > 10) {
+            input.value = 10;
+        }
+        if (input.value < 1) {
+            input.value = 1;
+        }
+    }</script>
+<table id="GioHang" title="Giỏ Hàng">
+    <tr>
+        <th width="18%">Ảnh bìa</th>
+        <th width="18%">Tên sách</th>
+        <th width="18%">Khuyến mãi</th>
+        <th width="18%">Đơn giá</th>
+        <th width="18%">Số lượng</th>
+        <th width="18%">Thành tiền</th>
+    </tr>
+    <tr></tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td><a href="@Url.Action("XemCT","TrangChu",new { @MaSach =item.iMaSach})"><img src="@Url.Content("~/Content/images/sach/"+item.sAnhBia)" style="width:50%; height:150px"></a></td>
+            <td>@item.sTenSach</td>
+            <td>@item.iSale%</td>
+            <td>
+                <span style="color:red">@string.Format("{0:0,0}", (decimal)item.dGia * (1 - (int)item.iSale / 100m)).Replace(",", ".") VNĐ</span>
+            </td>
+            @using (Html.BeginForm("CapNhatGioHang", "GioHang", new { @iMaSach = item.iMaSach }))
+            {
+                <td>
+                    @Html.TextBox("txtSoLuong", item.iSoLuong, new
+                    {
+                        @type = "number",
+                        @min = "1",
+                        @max = "10",
+                        @onchange = "checkValue(this); this.form.submit()"
+                    })
+                </td>
+                <td>
+                    <span style="color:red">@string.Format("{0:0,0}", item.dThanhTien).Replace(",", ".") VNĐ</span>
+                </td>
+                <td>
+
+                    <br />
+                    @Html.ActionLink("Xóa", "XoaGioHang", new { @iMaSach = item.iMaSach }, new { style = "color: red;" })
+                </td>
+            }
+        </tr>
+    }
+    <tr>
+        <td colspan="4" style="text-align:right; font-weight:bold">Tổng tiền:</td>
+        <td style="color:red; font-weight:bold">@string.Format("{0:0,0}", GioHang.TongTien(Model)).Replace(",", ".") VNĐ</td>
+    </tr>
+    <tr>
+        <td colspan="6" style="text-align:right;color:blue">
+            @using (Html.BeginForm("XacNhanDonHang", "GioHang"))
+            {
+                <input class="orange-button" type="submit" value="Đặt Hàng" />
+            }
+        </td>
+    </tr>
+</table>

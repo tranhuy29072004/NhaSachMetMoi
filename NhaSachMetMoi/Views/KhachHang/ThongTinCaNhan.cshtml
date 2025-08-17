@@ -1,0 +1,65 @@
+﻿@model NhaSachMetMoi.Models.KH
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layoutpage.cshtml";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thông Tin Cá Nhân</title>
+    <link rel="stylesheet" href="~/Content/Site.css">
+</head>
+<body>
+    <h1 style="display: flex;flex-direction: row;align-content: stretch;justify-content: space-evenly;">Thông Tin Cá Nhân</h1>
+    <table class="personal-info-table">
+        <tr>
+        </tr>
+        <tr>
+            <td>Họ tên:</td>
+            <td>@Model.HoTen</td>
+        </tr>
+        <tr>
+            <td>Điện thoại:</td>
+            <td>@Model.DienThoai</td>
+            <td>Email:</td>
+            <td>@Model.Email</td>
+        </tr>
+        <tr>
+            <td>Địa Chỉ:</td>
+            <td colspan="3">@Model.DiaChi</td>
+        </tr>
+        <tr>
+            <td>Ngày Sinh:</td>
+            <td>@(Model.NgaySinh.HasValue ? Model.NgaySinh.Value.ToString("dd/MM/yyyy") : "Không có dữ liệu")</td>
+
+        </tr>
+        <tr>
+            <td>Tổng sản phẩm đã mua:</td>
+            <td>...</td>
+            <td>Hạng Thành Viên:</td>
+            <td>...</td>
+        </tr>
+    </table>
+    <div style="padding:12px">
+        <a href="@Url.Action("SuaTTCN", "KhachHang", new { id = Model.MaKH })" class="btn ">Thay đổi thông tin</a>
+        <a href="@Url.Action("LichSuDonHang", "KhachHang", new { id = Model.MaKH })" class="btn ">Đơn hàng của bạn</a>
+    </div>
+</body>
+</html>
+<style>
+    .btn {
+         padding: 10px 30px;
+        color: #FFFACD;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+         margin: auto;
+        background: linear-gradient(to right, #34a853, #8bc34a);
+        outline: none;
+        border-radius: 30px;
+        border: 0px;
+    }
+
+</style>

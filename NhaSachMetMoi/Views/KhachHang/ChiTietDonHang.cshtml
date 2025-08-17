@@ -1,0 +1,81 @@
+﻿@model NhaSachMetMoi.Models.DonHang
+
+@{
+    ViewBag.Title = "Chi tiết đơn hàng";
+    Layout = "~/Views/Shared/Layoutpage.cshtml";
+}
+
+<h2>Chi tiết đơn hàng</h2>
+<div>
+    <h3 style="text-align:center">Thông tin đơn hàng</h3>
+    <table>
+        <tr>
+            <td>Mã đơn hàng:</td>
+            <td>@Model.MaDH</td>
+        </tr>
+        <tr>
+            <td>Ngày đặt:</td>
+            <td>@string.Format("{0:dd/MM/yyyy HH:mm:ss}", Model.NgayDat)</td>
+        </tr>
+        <tr>
+            <td>Trạng thái:</td>
+            <td>@(Model.NgayGiao.HasValue && Model.NgayGiao <= DateTime.Now ? "Đã giao" : "Chưa giao")</td>
+        </tr>
+        <tr>
+            <td>Ngày giao:</td>
+            <td>@(Model.NgayGiao.HasValue ? string.Format("{0:dd/MM/yyyy HH:mm:ss}", Model.NgayGiao.Value) : "Đang cập nhật..")</td>
+        </tr>
+    </table>
+
+
+</div>
+
+<div>
+    <h3>Sản phẩm</h3>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Ảnh bìa</th>
+                <th>Tên sách</th>
+                <th>Số lượng</th>
+                <th>Giá bán</th>
+                <th>Khuyến mãi</th>
+                <th>Thành tiền</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var chiTiet in Model.ChiTietDHs)
+            {
+                <tr>
+                    <td><img src="@Url.Content("~/Content/images/sach/" + chiTiet.Sach.AnhBia)" alt="Ảnh bìa" class="img-thumbnail" style="width:50px; height:70px;" /></td>
+                    <td>@chiTiet.Sach.TenSach</td>
+                    <td>@chiTiet.SoLuong</td>
+                    <td>@chiTiet.Sach.Gia VNĐ</td>
+                    <td>@chiTiet.Sach.Sale %</td>
+                    <td>@String.Format("{0:0,0}", chiTiet.Sach.Gia * chiTiet.SoLuong * (1 - chiTiet.Sach.Sale / 100m)).Replace(",", ".") VNĐ</td>
+                </tr>
+            }
+            <tr>
+                <td colspan="5" style="text-align:right; font-weight:bold;">Tổng tiền:</td>
+                <td style="color:red; font-weight:bold;">
+                    @String.Format("{0:0,0}", Model.ChiTietDHs.Sum(chiTiet => chiTiet.Sach.Gia * chiTiet.SoLuong * (1 - chiTiet.Sach.Sale / 100m))).Replace(",", ".") VNĐ
+                </td>
+            </tr>
+            <tr>
+                <td colspan="5" style="text-align:right; font-weight:bold;">Giảm giá từ mã:</td>
+                <td style="color:red; font-weight:bold;">
+                    @String.Format("{0:0,0}", (Model.ChiTietDHs.Sum(chiTiet => chiTiet.Sach.Gia * chiTiet.SoLuong * (1 - chiTiet.Sach.Sale / 100m)) - Model.TongTien)).Replace(",", ".") VNĐ
+                </td>
+            </tr>
+            <tr>
+                <td colspan="5" style="text-align:right; font-weight:bold;">Tổng tiền phải trả:</td>
+                <td style="color:red; font-weight:bold;">
+                    @String.Format("{0:0,0}", Model.TongTien).Replace(",", ".") VNĐ
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div style="text-align:right" >
+    <a href="@Url.Action("LichSuDonHang", "KhachHang", new { id = Model.MaKH })" class="btn " style="margin-right:50px";font-size:25px;color: #2E8B57">Về lịch sử đơn hàng của bạn</a>
+</div>

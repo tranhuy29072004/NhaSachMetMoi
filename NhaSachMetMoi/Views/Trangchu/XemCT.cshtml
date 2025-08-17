@@ -1,0 +1,61 @@
+﻿@using NhaSachMetMoi.Models;
+@model Sach
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<link href="~/Content/Layoutpage.css" rel="stylesheet" />
+@{
+    ViewBag.Title = "XemCT";
+    Layout = "~/Views/Shared/Layoutpage.cshtml";
+}
+<script>function checkValue(input) {
+    if (input.value > 10) {
+        input.value = 10;
+    }
+    if (input.value < 1) {
+        input.value = 1;
+    }
+}</script>
+<div class="container-fluid">
+    <div class="row">
+        <div id="Hinh" class="col-sm-7">
+            <div style="text-align:center">
+                <img src="@Url.Content("~/Content/images/sach/"+Model.AnhBia)" width="500" height="550">
+            </div>
+        </div>
+        <div id="Chitiet" class="col-sm-5">
+            <div>
+                <div style="color:orange; font-size:50px">@Model.TenSach</div>
+                <br />
+                <div>Thể loại: @Model.TL.TenTL</div>
+                <br />
+                <div>Tác giả: @Model.TG.TenTG</div>
+                <br />
+                <div>NXB: @Model.NXB.TenNXB</div>
+                <br />
+                <div>NămXB: @Model.NamXB</div>
+                <br />
+                <div>Khuyến mãi: @Model.Sale%</div>
+                <br />
+                <div>Mô tả: @Model.MoTa</div>
+                <br />
+                <div id="Gia">
+                    <span style="color:green; font-size:larger;">Giá sản phẩm:</span>
+                    <br />
+                    <span style="color:red;font-size:xx-large">@string.Format("{0:0,0}", (decimal)Model.Gia * (1 - (int)Model.Sale / 100m)).Replace(",", ".") VNĐ</span>
+                    <del style="color:black; font-size:14px">@string.Format("{0:0,0}", @Model.Gia).Replace(",", ".") VNĐ</del>
+                </div>
+              
+                <br /> <br />
+                <div class="container_swap">
+                    @using (Html.BeginForm("ThemGioHang", "GioHang", new { @iMaSach = Model.MaSach, @strURL = Request.Url.ToString() }))
+                    {
+                        <button type="submit" class="left">Thêm vào giỏ</button>
+                    }
+                    @using (Html.BeginForm("MuaNgay", "GioHang", new { @iMaSach = Model.MaSach, @strURL = Request.Url.ToString() }))
+                    {
+                        <button type="submit" class="right">Mua ngay</button>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,61 @@
+﻿@using NhaSachMetMoi.Models
+@{
+    Layout = "~/Views/Shared/Layoutpage.cshtml";
+}
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        color: #333;
+        margin: 0;
+        padding: 0;
+    }
+
+    .dathangthanhcong {
+         
+        margin: 50px auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+        .dathangthanhcong h1, .dathangthanhcong h2, .dathangthanhcong h3 {
+            color: #333;
+        }
+
+        .dathangthanhcong h2 {
+            color: #2E8B57;
+        }
+
+        .dathangthanhcong div {
+            margin-top: 20px;
+        }
+
+        .dathangthanhcong a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+            .dathangthanhcong a:hover {
+                text-decoration: underline;
+            }
+</style>
+
+<div class="dathangthanhcong">
+    <img src="https://cdn.pixabay.com/photo/2017/01/13/01/22/ok-1976099_640.png" style="width:320px; height:320px">
+    <h1 style="color:#2E8B57" ;>Đặt hàng thành công</h1>
+    <h3>Chúng tôi sẽ cập nhật trạng thái đơn hàng của bạn sớm nhất</h3>
+
+    @if (Session["TaiKhoan"] != null)
+    {
+        var kh = (KH)Session["TaiKhoan"];
+        <h2>Cảm ơn, @kh.TaiKhoan đã tin tưởng chúng tôi</h2>
+    }
+</div>
+
+<div style="font-size: 20px; margin-left:10px">
+    <a href="~/Trangchu/Index"style="color:#2E8B57" >Quay lại trang chủ</a>
+</div>

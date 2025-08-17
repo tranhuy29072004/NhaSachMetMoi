@@ -1,0 +1,81 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model PagedList.PagedList<NhaSachMetMoi.Models.KH>
+
+@{
+    ViewBag.Title = "IndexKH";
+    Layout = "~/Views/Shared/Admin.cshtml";
+    <link href="~/Content/StyleSheet1.css" rel="stylesheet" />
+}
+
+<br />
+<h1 style="text-align:center">Quản lý khách hàng</h1>
+<br />
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.First().MaKH)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().HoTen)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().TaiKhoan)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().MatKhau)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().DiaChi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().DienThoai)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().NgaySinh)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaKH)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HoTen)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TaiKhoan)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MatKhau)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DiaChi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DienThoai)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NgaySinh)
+            </td>
+            <td>
+                @Html.ActionLink("Chỉnh Sửa", "EditKH", new { @MaKH = item.MaKH })|
+                @Html.ActionLink("Chi Tiết", "DetailKH", new { @MaKH = item.MaKH })|
+                @Html.ActionLink("Xóa", "DeleteKH", new { @MaKH = item.MaKH })
+            </td>
+        </tr>
+    }
+</table>
+<div style="clear:both"></div>
+<div class="MenuPage">
+    @Html.PagedListPager(Model, page => Url.Action("IndexKH", new { page = page }))
+</div>

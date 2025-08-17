@@ -1,0 +1,137 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model PagedList.PagedList<NhaSachMetMoi.Models.Sach>
+
+@{
+    ViewBag.Title = "IndexAd";
+    Layout = "~/Views/Shared/Admin.cshtml";
+    <link href="~/Content/StyleSheet1.css" rel="stylesheet" />
+}
+<br />
+<h1 style="text-align:center;font-family:sans-serif">Quản lý sản phẩm</h1>
+<p>
+    @Html.ActionLink("Tạo mới sản phẩm", "Create")
+</p>
+<table class="table" id="table_adm">
+    <tr>
+        <th width="4%">
+            Mã Sản Phẩm
+        </th>
+        <th width="11%">
+Tên Sản Phẩm
+        </th>
+        <th width="6%">
+            Giá
+        </th>
+
+        <th width="18%">
+Mô Tả        </th>
+        <th width="5%">
+Ảnh Bìa        </th>
+        <th width="6%">
+Năm Xuất Bản/Sản Xuất        </th>
+        <th width="3%">
+Số Lượng Tồn        </th>
+        <th width="9%">
+Thể Loại        </th>
+        <th width="10%">
+Tác Giả        </th>
+        <th width="9%">
+Nhà Xuất Bản/Sản Xuất        </th>
+        <th width="3%">
+Sale        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+<tr>
+    <td style="text-align: center">
+        @Html.DisplayFor(modelItem => item.MaSach)
+    </td>
+
+
+    <td style="padding-left: 5px">
+        @{
+            string truncatedTitle = item.TenSach.Length > 10 ? item.TenSach.Substring(0, 10) + "..." : item.TenSach;
+        }
+        @truncatedTitle
+    </td>
+
+    <td style="text-align: center">
+        @String.Format("{0:F2}", item.Gia).TrimEnd('0').TrimEnd('.')
+    </td>
+
+
+
+    <td style="padding-left: 5px">
+        @{
+            string truncatedDescription = item.MoTa?.Length > 23 ? item.MoTa.Substring(0, 23) + "..." : item.MoTa;
+        }
+        @truncatedDescription
+    </td>
+
+    <td style="text-align: center; vertical-align: middle">
+        <div>
+            <img src="@Url.Content("~/Content/images/sach/"+item.AnhBia)" width="50" height="55">
+        </div>
+    </td>
+
+    <td style="text-align: center">
+        @Html.DisplayFor(modelItem => item.NamXB)
+    </td>
+
+    <td style="text-align: center">
+        @Html.DisplayFor(modelItem => item.SoLuongTon)
+    </td>
+
+    <td style="padding-left: 5px">
+        @{
+            var tenTL = item.TL != null ? item.TL.TenTL : string.Empty;
+            var truncatedTenTL = tenTL.Length > 10 ? tenTL.Substring(0, 10) : tenTL;
+            @Html.DisplayFor(modelItem => truncatedTenTL)
+            <span>...</span>
+        }
+    </td>
+
+    <td style="padding-left: 5px">
+        @{
+            var tenTG = item.TG != null ? item.TG.TenTG : string.Empty;
+            var truncatedTenTG = tenTG.Length > 10 ? tenTG.Substring(0, 10) : tenTG;
+            @Html.DisplayFor(modelItem => truncatedTenTG)
+            <span>...</span>
+        }
+    </td>
+
+    <td style="padding-left: 5px">
+        @{
+            var tenNXB = item.NXB != null ? item.NXB.TenNXB : string.Empty;
+            var truncatedTenNXB = tenNXB.Length > 10 ? tenNXB.Substring(0, 10) : tenNXB;
+            @Html.DisplayFor(modelItem => truncatedTenNXB)
+            <span>...</span>
+        }
+    </td>
+
+    <td style="text-align: center">
+        @Html.DisplayFor(modelItem => item.Sale)
+    </td>
+
+    <td style="padding-left: 2px">
+        <div>
+            @Html.ActionLink("Chỉnh sửa", "Edit", new { @MaSach = item.MaSach })
+        </div>
+        <div>
+            @Html.ActionLink("Chi tiết", "Details", new { @MaSach = item.MaSach })
+        </div>
+        <div>
+            @Html.ActionLink("Xóa", "Delete", new { @MaSach = item.MaSach })
+        </div>
+    </td>
+
+</tr>
+    }
+</table>
+<div style="clear:both"></div>
+<div class="MenuPage">
+    @Html.PagedListPager(Model, page => Url.Action("IndexAd", new { page = page }))
+</div>
